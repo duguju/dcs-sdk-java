@@ -53,7 +53,6 @@ public class DcsSampleOAuthActivity extends DcsSampleBaseActivity implements Vie
         setContentView(R.layout.dcs_sample_activity_oauth);
         initView();
         setOnClickListener();
-        oauthLoginButton.callOnClick();
     }
 
     private void setOnClickListener() {

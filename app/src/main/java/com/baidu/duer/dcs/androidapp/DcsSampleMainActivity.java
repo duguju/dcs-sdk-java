@@ -103,8 +103,8 @@ public class DcsSampleMainActivity extends DcsSampleBaseActivity implements View
         webView.setWebViewClientListen(new BaseWebView.WebViewClientListener() {
             @Override
             public BaseWebView.LoadingWebStatus shouldOverrideUrlLoading(WebView view, String url) {
-                // 拦截处理不让其点击
-                return BaseWebView.LoadingWebStatus.STATUS_TRUE;
+                // 将值设为false后可点击
+                return BaseWebView.LoadingWebStatus.STATUS_FALSE;
             }
 
             @Override

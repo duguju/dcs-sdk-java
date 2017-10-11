@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -402,5 +403,29 @@ public class DcsSampleMainActivity extends DcsSampleBaseActivity implements View
         mTopLinearLayout.removeView(webView);
         webView.removeAllViews();
         webView.destroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (webView.canGoBack()) {
+                webView.goBack();
+                return false;
+            } else {
+                moveTaskToBack(true);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+            return;
+        } else {
+            moveTaskToBack(true);
+        }
+        super.onBackPressed();
     }
 }

@@ -5,13 +5,13 @@
     android:background="@color/color_f5f5f5"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/wakeup_word"
-        android:textColor="@android:color/black"
-        android:textSize="18dp" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:text="@string/wakeup_word"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:textSize="18dp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/id_tv_RenderVoiceInputText"
@@ -103,7 +104,8 @@
             android:background="@drawable/btn_bg"
             android:text="@string/open_log"
             android:textColor="@android:color/white"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

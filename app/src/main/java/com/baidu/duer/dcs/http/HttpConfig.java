@@ -18,6 +18,9 @@ package com.baidu.duer.dcs.http;
 import android.util.Log;
 
 import com.baidu.duer.dcs.util.CommonUtil;
+import com.baidu.duer.dcs.util.DcsVersion;
+import com.baidu.duer.dcs.util.StandbyDeviceIdUtil;
+import com.baidu.duer.dcs.util.SystemServiceManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,17 +78,19 @@ public class HttpConfig {
     public static class HttpHeaders {
         public static final String CONTENT_TYPE = "Content-Type";
         public static final String DUEROS_DEVICE_ID = "dueros-device-id";
+        public static final String DUEROS_STANDBY_DEVICE_ID = "StandbyDeviceId";
         public static final String AUTHORIZATION = "Authorization";
         public static final String CONTENT_ID = "Content-ID";
         public static final String BEARER = "Bearer ";
         public static final String DEBUG = "debug";
         public static final String DEBUG_PARAM = "0";
         public static final String SAIYA_LOGID = "saiyalogid";
+        public static final String USER_AGENT = "User-Agent";
     }
 
     public static class ContentTypes {
         public static final String JSON = "application/json";
-        public static final String FORM_MULTIPART = "multipart/form-data boundary=dumi-boundory";
+        public static final String FORM_MULTIPART = "multipart/form-data; boundary=dumi-boundory";
         public static final String APPLICATION_JSON = JSON + ";" + " charset=UTF-8";
         public static final String APPLICATION_AUDIO = "application/octet-stream";
     }
@@ -119,12 +124,16 @@ public class HttpConfig {
                 HttpConfig.ContentTypes.FORM_MULTIPART);
         headers.put(HttpConfig.HttpHeaders.DUEROS_DEVICE_ID,
                 CommonUtil.getDeviceUniqueID());
+        headers.put(HttpConfig.HttpHeaders.DUEROS_STANDBY_DEVICE_ID,
+                StandbyDeviceIdUtil.getStandbyDeviceId(SystemServiceManager.getAppContext()));
         headers.put(HttpConfig.HttpHeaders.DEBUG,
                 HttpConfig.HttpHeaders.DEBUG_PARAM);
         // headers.put(HttpHeaders.DEBUG_BOSS, "nj03-rp-m22nlp156.nj03.baidu.com:8486");
         String logId = UUID.randomUUID().toString();
-        Log.d("time", "logid："+logId);
+        Log.d("time", "logid：" + logId);
         headers.put(HttpHeaders.SAIYA_LOGID, logId);
+        headers.put(HttpHeaders.USER_AGENT,
+                "sampleapp/" + DcsVersion.VERSION_NAME);
         return headers;
     }
 }

@@ -18,7 +18,6 @@ package com.baidu.duer.dcs.util;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -32,7 +31,6 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.UUID;
 
 /**
  * 辅助工具类
@@ -41,6 +39,7 @@ import java.util.UUID;
  */
 public class CommonUtil {
     private static final int JSON_INDENT = 4;
+    private static String deviceUniqueId = "";
 
     public static String getCurrentTime() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
@@ -189,21 +188,10 @@ public class CommonUtil {
      * @return String 设备唯一标识
      */
     public static String getDeviceUniqueID() {
-        String devIDShort = "35" + (Build.BOARD.length() % 10) + (Build.BRAND.length() % 10);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            devIDShort += (Build.SUPPORTED_ABIS[0].length() % 10);
-        } else {
-            devIDShort += (Build.CPU_ABI.length() % 10);
+        // getCUID是DeviceId.getDeviceID()+"|"+DeviceId.getIMEI();
+        if (TextUtils.isEmpty(deviceUniqueId)) {
+            deviceUniqueId = StandbyDeviceIdUtil.getStandbyDeviceId(SystemServiceManager.getAppContext());
         }
-        devIDShort += (Build.DEVICE.length() % 10) + (Build.MANUFACTURER.length() % 10)
-                + (Build.MODEL.length() % 10) + (Build.PRODUCT.length() % 10);
-        String serial;
-        try {
-            serial = Build.class.getField("SERIAL").get(null).toString();
-            return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
-        } catch (Exception e) {
-            serial = "Dueros000";
-        }
-        return new UUID(devIDShort.hashCode(), serial.hashCode()).toString();
+        return deviceUniqueId;
     }
 }
